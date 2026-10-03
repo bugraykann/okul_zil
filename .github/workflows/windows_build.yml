@@ -28,10 +28,12 @@ jobs:
         run: dart run flutter_launcher_icons
 
       - name: Create MSIX Installer
-        run: dart run msix:create
+        run: dart run msix:create --install-certificate false
 
       - name: Upload MSIX Installer
         uses: actions/upload-artifact@v4
         with:
           name: OkulZilim-Windows-Installer
-          path: build\windows\x64\runner\Release\*.msix
+          path: |
+            build\windows\x64\runner\Release\*.msix
+            build\windows\x64\runner\Release\*.pfx
