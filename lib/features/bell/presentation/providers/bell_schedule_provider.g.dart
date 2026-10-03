@@ -34,7 +34,7 @@ final class BellScheduleNotifierProvider
 }
 
 String _$bellScheduleNotifierHash() =>
-    r'c45891b8e961fa71b2004a56cfe0b0e7c5755bd7';
+    r'ef6268b22f53c252461c8ff51ee688bfe2d473d8';
 
 abstract class _$BellScheduleNotifier
     extends $AsyncNotifier<List<BellSchedule>> {

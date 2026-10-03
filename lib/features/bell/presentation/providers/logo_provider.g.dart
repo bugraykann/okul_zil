@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bell_manager_provider.dart';
+part of 'logo_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,51 +9,51 @@ part of 'bell_manager_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(BellManager)
-final bellManagerProvider = BellManagerProvider._();
+@ProviderFor(LogoController)
+final logoControllerProvider = LogoControllerProvider._();
 
-final class BellManagerProvider
-    extends $NotifierProvider<BellManager, BellSchedule?> {
-  BellManagerProvider._()
+final class LogoControllerProvider
+    extends $NotifierProvider<LogoController, String?> {
+  LogoControllerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'bellManagerProvider',
+        name: r'logoControllerProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$bellManagerHash();
+  String debugGetCreateSourceHash() => _$logoControllerHash();
 
   @$internal
   @override
-  BellManager create() => BellManager();
+  LogoController create() => LogoController();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(BellSchedule? value) {
+  Override overrideWithValue(String? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<BellSchedule?>(value),
+      providerOverride: $SyncValueProvider<String?>(value),
     );
   }
 }
 
-String _$bellManagerHash() => r'6cc23de0d921f7f856bc43a3ff703a0a3e16c3d3';
+String _$logoControllerHash() => r'7cafa48af53e33cff39d170154a3756c02bcfffb';
 
-abstract class _$BellManager extends $Notifier<BellSchedule?> {
-  BellSchedule? build();
+abstract class _$LogoController extends $Notifier<String?> {
+  String? build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<BellSchedule?, BellSchedule?>;
+    final ref = this.ref as $Ref<String?, String?>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<BellSchedule?, BellSchedule?>,
-              BellSchedule?,
+              AnyNotifier<String?, String?>,
+              String?,
               Object?,
               Object?
             >;

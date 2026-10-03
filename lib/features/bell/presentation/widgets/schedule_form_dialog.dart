@@ -8,8 +8,9 @@ import '../providers/core_providers.dart';
 
 class ScheduleFormDialog extends ConsumerStatefulWidget {
   final BellSchedule? schedule;
+  final List<int>? initialDays;
 
-  const ScheduleFormDialog({super.key, this.schedule});
+  const ScheduleFormDialog({super.key, this.schedule, this.initialDays});
 
   @override
   ConsumerState<ScheduleFormDialog> createState() => _ScheduleFormDialogState();
@@ -27,6 +28,10 @@ class _ScheduleFormDialogState extends ConsumerState<ScheduleFormDialog> {
     _titleController = TextEditingController(
       text: widget.schedule?.title ?? '',
     );
+
+    if (widget.initialDays != null) {
+      _selectedDays = List.from(widget.initialDays!);
+    }
 
     if (widget.schedule != null) {
       final parts = widget.schedule!.time.split(':');

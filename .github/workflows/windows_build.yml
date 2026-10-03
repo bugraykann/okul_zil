@@ -1,0 +1,37 @@
+name: Build Windows MSIX
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate App Icon
+        run: dart run flutter_launcher_icons
+
+      - name: Create MSIX Installer
+        run: dart run msix:create
+
+      - name: Upload MSIX Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: OkulZilim-Windows-Installer
+          path: build\windows\x64\runner\Release\*.msix

@@ -26,7 +26,7 @@ class AudioService {
     try {
       _isPlaying = true;
       _isManualPlaying = isManual;
-      
+
       if (path.startsWith('assets/')) {
         await _audioPlayer.play(AssetSource(path.replaceFirst('assets/', '')));
       } else {

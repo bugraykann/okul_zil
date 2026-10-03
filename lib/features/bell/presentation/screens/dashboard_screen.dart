@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:window_manager/window_manager.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
@@ -12,10 +11,12 @@ import '../providers/bell_manager_provider.dart';
 import '../providers/clock_provider.dart';
 import '../providers/bell_schedule_provider.dart';
 import '../providers/shared_preferences_provider.dart';
+import 'dart:io';
 import '../providers/core_providers.dart';
 import '../providers/system_active_provider.dart';
 import '../providers/volume_provider.dart';
 import '../providers/log_provider.dart';
+import '../providers/logo_provider.dart';
 import '../widgets/log_dialog.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -66,8 +67,32 @@ class DashboardScreen extends ConsumerWidget {
 
               // Right Content
               Expanded(
-                child: Column(
+                child: Stack(
                   children: [
+                    // Background Logo
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final logoPath = ref.watch(logoControllerProvider);
+                        if (logoPath == null || logoPath.isEmpty) return const SizedBox();
+                        return Positioned.fill(
+                          child: Center(
+                            child: Opacity(
+                              opacity: 0.1,
+                              child: Image.file(
+                                File(logoPath),
+                                fit: BoxFit.contain,
+                                width: 400,
+                                height: 400,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    
+                    // Main layout column
+                    Column(
+                      children: [
                     // Top Bar
                     Padding(
                       padding: const EdgeInsets.only(top: 40, right: 24, left: 24),
@@ -91,16 +116,27 @@ class DashboardScreen extends ConsumerWidget {
                           // Right side (Actions)
                           Row(
                             children: [
-                              IconButton(
-                                icon: const Icon(Icons.history, color: AppColors.primary, size: 28),
-                                tooltip: 'Zil Geçmişi',
-                                onPressed: () => showDialog(
-                                  context: context,
-                                  builder: (ctx) => const LogDialog(),
+                                IconButton(
+                                  icon: const Icon(Icons.history, color: AppColors.primary, size: 28),
+                                  tooltip: 'Zil Geçmişi',
+                                  onPressed: () => showDialog(
+                                    context: context,
+                                    builder: (ctx) => const LogDialog(),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 16),
-                              const _VolumeSliderWidget(),
+                                const SizedBox(width: 8),
+                                IconButton(
+                                  icon: const Icon(Icons.image, color: AppColors.primary, size: 28),
+                                  tooltip: 'Okul Logosu Yükle',
+                                  onPressed: () async {
+                                    final result = await FilePicker.pickFiles(type: FileType.image);
+                                    if (result != null && result.files.single.path != null) {
+                                      ref.read(logoControllerProvider.notifier).setLogoPath(result.files.single.path);
+                                    }
+                                  },
+                                ),
+                                const SizedBox(width: 16),
+                                const _VolumeSliderWidget(),
                               const SizedBox(width: 16),
                               const _SystemStatusWidget(),
                               const SizedBox(width: 16),
@@ -138,7 +174,22 @@ class DashboardScreen extends ConsumerWidget {
                     ),
                   ],
                 ),
-              ),
+                    
+                // Copyright Text
+                Positioned(
+                  bottom: 8,
+                  right: 16,
+                  child: Text(
+                    '© 2026 Buğra Aykan tarafından geliştirildi',
+                    style: TextStyle(
+                      color: Colors.grey.withAlpha(150),
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
             ],
           ),
         );

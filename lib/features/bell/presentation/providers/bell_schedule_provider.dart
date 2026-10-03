@@ -28,7 +28,7 @@ class BellScheduleNotifier extends _$BellScheduleNotifier {
     if (result.success == true) {
       state = AsyncValue.data(schedules);
     } else {
-      // Handle error
+      throw Exception(result.failure?.message ?? 'Kaydetme hatası');
     }
   }
 

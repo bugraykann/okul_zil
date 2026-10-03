@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/entities/bell_schedule.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../providers/bell_schedule_provider.dart';
 
 class TemplateGeneratorDialog extends ConsumerStatefulWidget {
-  const TemplateGeneratorDialog({super.key});
+  final List<int>? initialDays;
+
+  const TemplateGeneratorDialog({super.key, this.initialDays});
 
   @override
   ConsumerState<TemplateGeneratorDialog> createState() => _TemplateGeneratorDialogState();
@@ -21,7 +22,15 @@ class _TemplateGeneratorDialogState extends ConsumerState<TemplateGeneratorDialo
   final _studentEntryOffsetCtrl = TextEditingController(text: '2'); // 2 mins before teacher
 
   TimeOfDay _startTime = const TimeOfDay(hour: 8, minute: 30);
-  final List<int> _selectedDays = [1, 2, 3, 4, 5];
+  List<int> _selectedDays = [1, 2, 3, 4, 5];
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialDays != null) {
+      _selectedDays = List.from(widget.initialDays!);
+    }
+  }
 
   String? _studentAudioPath;
   String? _teacherAudioPath;
@@ -82,20 +91,7 @@ class _TemplateGeneratorDialogState extends ConsumerState<TemplateGeneratorDialo
       }
     }
 
-    // Replace or Append? Let's just append for now, but we can ask user in UI.
-    // To keep it simple, we add them to the provider.
-    final provider = ref.read(bellScheduleProvider.notifier);
-    
-    // We can't do await in a loop easily without blocking, so we'll just get current, append and save once.
-    final currentSchedules = ref.read(bellScheduleProvider).value ?? [];
-    final updatedList = [...currentSchedules, ...generated];
-    
-    provider.saveSchedules(updatedList);
-    
-    Navigator.of(context).pop();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Ziller başarıyla oluşturuldu! Lütfen her zil için ses dosyası ayarlayın.')),
-    );
+    Navigator.of(context).pop(generated);
   }
 
   BellSchedule _createBell({required String title, required DateTime time, String? audioPath}) {
