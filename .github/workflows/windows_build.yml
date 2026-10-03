@@ -37,3 +37,4 @@ jobs:
           path: |
             build\windows\x64\runner\Release\*.msix
             build\windows\x64\runner\Release\*.pfx
+            *.pfx
