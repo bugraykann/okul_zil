@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
@@ -140,6 +141,21 @@ class DashboardScreen extends ConsumerWidget {
                               const SizedBox(width: 16),
                               const _SystemStatusWidget(),
                               const SizedBox(width: 16),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.local_cafe,
+                                  color: AppColors.primary,
+                                  size: 28,
+                                ),
+                                tooltip: 'Geliştiriciye Kahve Ismarla ☕',
+                                onPressed: () async {
+                                  final Uri url = Uri.parse('https://buymeacoffee.com/YOUR_USERNAME_HERE'); // TODO: Kendi profil linkinizi buraya ekleyin
+                                  if (!await launchUrl(url)) {
+                                    debugPrint('Could not launch $url');
+                                  }
+                                },
+                              ),
+                              const SizedBox(width: 8),
                               IconButton(
                                 icon: const Icon(
                                   Icons.settings,
