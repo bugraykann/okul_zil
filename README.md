@@ -20,16 +20,6 @@
 - **🚀 Açılışta Otomatik Başlatma (Auto-start):** Bilgisayar açıldığında sistemle birlikte otomatik olarak başlar.
 - **🎨 Modern ve Responsive Arayüz:** Her ekran boyutuna uyumlu, şık ve gece/gündüz göz yormayan modern tasarım.
 
-## 📸 Ekran Görüntüleri
-
-*Not: Ekran görüntülerinizi projenizin ana dizinindeki `assets` veya `docs` klasörüne ekleyip aşağıdaki yolları güncelleyebilirsiniz.*
-
-| Dashboard Ekranı | Ayarlar & Zil Yönetimi |
-| :---: | :---: |
-| <img src="https://via.placeholder.com/600x400?text=Dashboard+Ekrani" alt="Dashboard" width="100%"/> | <img src="https://via.placeholder.com/600x400?text=Zil+Yonetimi" alt="Ziller" width="100%"/> |
-
----
-
 ## 🛠 Kurulum ve Geliştirme
 
 Projeyi yerel ortamınızda çalıştırmak ve derlemek için aşağıdaki adımları izleyin.
