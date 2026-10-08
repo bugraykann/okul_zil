@@ -12,7 +12,9 @@ import '../providers/bell_manager_provider.dart';
 import '../providers/clock_provider.dart';
 import '../providers/bell_schedule_provider.dart';
 import '../providers/shared_preferences_provider.dart';
+
 import 'dart:io';
+
 import '../providers/core_providers.dart';
 import '../providers/system_active_provider.dart';
 import '../providers/volume_provider.dart';
@@ -74,7 +76,9 @@ class DashboardScreen extends ConsumerWidget {
                     Consumer(
                       builder: (context, ref, child) {
                         final logoPath = ref.watch(logoControllerProvider);
-                        if (logoPath == null || logoPath.isEmpty) return const SizedBox();
+                        if (logoPath == null || logoPath.isEmpty) {
+                          return const SizedBox();
+                        }
                         return Positioned.fill(
                           child: Center(
                             child: Opacity(
@@ -84,128 +88,156 @@ class DashboardScreen extends ConsumerWidget {
                                 fit: BoxFit.contain,
                                 width: 400,
                                 height: 400,
+                                errorBuilder: (context, error, stackTrace) => const SizedBox(),
                               ),
                             ),
                           ),
                         );
                       },
                     ),
-                    
+
                     // Main layout column
                     Column(
                       children: [
-                    // Top Bar
-                    Padding(
-                      padding: const EdgeInsets.only(top: 40, right: 24, left: 24),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // Left side (Menu button on small screens)
-                          isSmallScreen
-                              ? Builder(
-                                  builder: (ctx) => IconButton(
+                        // Top Bar
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 40,
+                            right: 24,
+                            left: 24,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Left side (Menu button on small screens)
+                              isSmallScreen
+                                  ? Builder(
+                                      builder: (ctx) => IconButton(
+                                        icon: const Icon(
+                                          Icons.menu_open_rounded,
+                                          color: AppColors.primary,
+                                          size: 28,
+                                        ),
+                                        onPressed: () =>
+                                            Scaffold.of(ctx).openDrawer(),
+                                      ),
+                                    )
+                                  : const SizedBox(),
+
+                              // Right side (Actions)
+                              Row(
+                                children: [
+                                  IconButton(
                                     icon: const Icon(
-                                      Icons.menu_open_rounded,
+                                      Icons.history,
                                       color: AppColors.primary,
                                       size: 28,
                                     ),
-                                    onPressed: () => Scaffold.of(ctx).openDrawer(),
+                                    tooltip: 'Zil Geçmişi',
+                                    onPressed: () => showDialog(
+                                      context: context,
+                                      builder: (ctx) => const LogDialog(),
+                                    ),
                                   ),
-                                )
-                              : const SizedBox(),
-                              
-                          // Right side (Actions)
-                          Row(
-                            children: [
-                                IconButton(
-                                  icon: const Icon(Icons.history, color: AppColors.primary, size: 28),
-                                  tooltip: 'Zil Geçmişi',
-                                  onPressed: () => showDialog(
-                                    context: context,
-                                    builder: (ctx) => const LogDialog(),
+                                  const SizedBox(width: 8),
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.image,
+                                      color: AppColors.primary,
+                                      size: 28,
+                                    ),
+                                    tooltip: 'Okul Logosu Yükle',
+                                    onPressed: () async {
+                                      final result = await FilePicker.pickFiles(
+                                        type: FileType.image,
+                                      );
+                                      if (result != null &&
+                                          result.files.single.path != null) {
+                                        ref
+                                            .read(
+                                              logoControllerProvider.notifier,
+                                            )
+                                            .setLogoPath(
+                                              result.files.single.path,
+                                            );
+                                      }
+                                    },
                                   ),
-                                ),
-                                const SizedBox(width: 8),
-                                IconButton(
-                                  icon: const Icon(Icons.image, color: AppColors.primary, size: 28),
-                                  tooltip: 'Okul Logosu Yükle',
-                                  onPressed: () async {
-                                    final result = await FilePicker.pickFiles(type: FileType.image);
-                                    if (result != null && result.files.single.path != null) {
-                                      ref.read(logoControllerProvider.notifier).setLogoPath(result.files.single.path);
-                                    }
-                                  },
-                                ),
-                                const SizedBox(width: 16),
-                                const _VolumeSliderWidget(),
-                              const SizedBox(width: 16),
-                              const _SystemStatusWidget(),
-                              const SizedBox(width: 16),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.local_cafe,
-                                  color: AppColors.primary,
-                                  size: 28,
-                                ),
-                                tooltip: 'Geliştiriciye Kahve Ismarla ☕',
-                                onPressed: () async {
-                                  final Uri url = Uri.parse('https://buymeacoffee.com/YOUR_USERNAME_HERE'); // TODO: Kendi profil linkinizi buraya ekleyin
-                                  if (!await launchUrl(url)) {
-                                    debugPrint('Could not launch $url');
-                                  }
-                                },
-                              ),
-                              const SizedBox(width: 8),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.settings,
-                                  color: AppColors.primary,
-                                  size: 28,
-                                ),
-                                onPressed: () => context.push(RouteNames.schedules),
+                                  const SizedBox(width: 16),
+                                  const _VolumeSliderWidget(),
+                                  const SizedBox(width: 16),
+                                  const _SystemStatusWidget(),
+                                  const SizedBox(width: 16),
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.local_cafe,
+                                      color: AppColors.primary,
+                                      size: 28,
+                                    ),
+                                    tooltip: 'Geliştiriciye Kahve Ismarla ☕',
+                                    onPressed: () async {
+                                      final Uri url = Uri.parse(
+                                        'buymeacoffee.com/bgraykn',
+                                      );
+                                      if (!await launchUrl(url)) {
+                                        debugPrint('Could not launch $url');
+                                      }
+                                    },
+                                  ),
+                                  const SizedBox(width: 8),
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.settings,
+                                      color: AppColors.primary,
+                                      size: 28,
+                                    ),
+                                    onPressed: () =>
+                                        context.push(RouteNames.schedules),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+
+                        // Main Content
+                        Expanded(
+                          child: Center(
+                            child: SingleChildScrollView(
+                              padding: EdgeInsets.all(
+                                isSmallScreen ? 16.0 : 24.0,
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const _CurrentTimeWidget(),
+                                  SizedBox(height: isSmallScreen ? 16 : 32),
+                                  const _NextBellWidget(),
+                                  SizedBox(height: isSmallScreen ? 32 : 48),
+                                  const _ManualBellsWidget(),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    
-                    // Main Content
-                    Expanded(
-                      child: Center(
-                        child: SingleChildScrollView(
-                          padding: EdgeInsets.all(isSmallScreen ? 16.0 : 24.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const _CurrentTimeWidget(),
-                              SizedBox(height: isSmallScreen ? 16 : 32),
-                              const _NextBellWidget(),
-                              SizedBox(height: isSmallScreen ? 32 : 48),
-                              const _ManualBellsWidget(),
-                            ],
-                          ),
+
+                    // Copyright Text
+                    Positioned(
+                      bottom: 8,
+                      right: 16,
+                      child: Text(
+                        '© 2026 Buğra Aykan tarafından geliştirildi',
+                        style: TextStyle(
+                          color: Colors.grey.withAlpha(150),
+                          fontSize: 10,
                         ),
                       ),
                     ),
                   ],
                 ),
-                    
-                // Copyright Text
-                Positioned(
-                  bottom: 8,
-                  right: 16,
-                  child: Text(
-                    '© 2026 Buğra Aykan tarafından geliştirildi',
-                    style: TextStyle(
-                      color: Colors.grey.withAlpha(150),
-                      fontSize: 10,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+              ),
             ],
           ),
         );
@@ -228,12 +260,19 @@ class _TimelineWidget extends ConsumerWidget {
         return clockAsync.when(
           data: (currentTime) {
             final todaySchedules = schedules
-                .where((s) => s.isEnabled && s.days.contains(currentTime.weekday))
+                .where(
+                  (s) => s.isEnabled && s.days.contains(currentTime.weekday),
+                )
                 .toList();
             todaySchedules.sort((a, b) => a.time.compareTo(b.time));
 
             if (todaySchedules.isEmpty) {
-              return const Center(child: Text('Bugün aktif zil yok', style: TextStyle(color: Colors.grey)));
+              return const Center(
+                child: Text(
+                  'Bugün aktif zil yok',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              );
             }
 
             return ListView.builder(
@@ -241,11 +280,11 @@ class _TimelineWidget extends ConsumerWidget {
               itemCount: todaySchedules.length,
               itemBuilder: (context, index) {
                 final schedule = todaySchedules[index];
-                
+
                 // Determine status
                 bool isPast = false;
                 bool isNext = false;
-                
+
                 if (nextBell != null && nextBell.id == schedule.id) {
                   isNext = true;
                 } else {
@@ -263,7 +302,11 @@ class _TimelineWidget extends ConsumerWidget {
                 }
 
                 // HUD UI mapping
-                final color = isNext ? AppColors.primary : (isPast ? AppColors.textSecondary.withAlpha(80) : AppColors.textSecondary.withAlpha(160));
+                final color = isNext
+                    ? AppColors.primary
+                    : (isPast
+                          ? AppColors.textSecondary.withAlpha(80)
+                          : AppColors.textSecondary.withAlpha(160));
                 final dotSize = isNext ? 14.0 : 8.0;
                 final textWeight = isNext ? FontWeight.bold : FontWeight.w500;
                 final lineColor = AppColors.primary.withAlpha(isPast ? 20 : 40);
@@ -277,7 +320,14 @@ class _TimelineWidget extends ConsumerWidget {
                         child: Column(
                           children: [
                             // top line
-                            Expanded(child: Container(width: 2, color: index == 0 ? Colors.transparent : lineColor)),
+                            Expanded(
+                              child: Container(
+                                width: 2,
+                                color: index == 0
+                                    ? Colors.transparent
+                                    : lineColor,
+                              ),
+                            ),
                             // dot
                             Container(
                               width: dotSize,
@@ -285,17 +335,28 @@ class _TimelineWidget extends ConsumerWidget {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: color,
-                                boxShadow: isNext ? [
-                                  BoxShadow(
-                                    color: AppColors.primary.withAlpha(100),
-                                    blurRadius: 12,
-                                    spreadRadius: 4,
-                                  )
-                                ] : null,
+                                boxShadow: isNext
+                                    ? [
+                                        BoxShadow(
+                                          color: AppColors.primary.withAlpha(
+                                            100,
+                                          ),
+                                          blurRadius: 12,
+                                          spreadRadius: 4,
+                                        ),
+                                      ]
+                                    : null,
                               ),
                             ),
                             // bottom line
-                            Expanded(child: Container(width: 2, color: index == todaySchedules.length - 1 ? Colors.transparent : lineColor)),
+                            Expanded(
+                              child: Container(
+                                width: 2,
+                                color: index == todaySchedules.length - 1
+                                    ? Colors.transparent
+                                    : lineColor,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -306,8 +367,18 @@ class _TimelineWidget extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(schedule.time, style: TextStyle(fontSize: 18, color: color, fontWeight: textWeight)),
-                              Text(schedule.title, style: TextStyle(fontSize: 14, color: color)),
+                              Text(
+                                schedule.time,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: color,
+                                  fontWeight: textWeight,
+                                ),
+                              ),
+                              Text(
+                                schedule.title,
+                                style: TextStyle(fontSize: 14, color: color),
+                              ),
                             ],
                           ),
                         ),
@@ -319,11 +390,11 @@ class _TimelineWidget extends ConsumerWidget {
             );
           },
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (_, __) => const SizedBox(),
+          error: (_, _) => const SizedBox(),
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (_, __) => const SizedBox(),
+      error: (_, _) => const SizedBox(),
     );
   }
 }
@@ -374,11 +445,19 @@ class _NextBellWidget extends ConsumerWidget {
         ),
         child: Column(
           children: [
-            const Icon(Icons.notifications_paused_outlined, size: 48, color: Colors.red),
+            const Icon(
+              Icons.notifications_paused_outlined,
+              size: 48,
+              color: Colors.red,
+            ),
             const SizedBox(height: 16),
             const Text(
               'TATİL MODU',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Colors.red),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w900,
+                color: Colors.red,
+              ),
             ),
             const SizedBox(height: 8),
             const Text(
@@ -436,7 +515,7 @@ class _NextBellWidget extends ConsumerWidget {
                 int.tryParse(parts[0]) ?? 0,
                 int.tryParse(parts[1]) ?? 0,
               );
-              
+
               if (nextTime.isBefore(currentTime)) {
                 // If it's earlier, it means it's tomorrow
                 nextTime = nextTime.add(const Duration(days: 1));
@@ -446,16 +525,19 @@ class _NextBellWidget extends ConsumerWidget {
               final h = diff.inHours.toString().padLeft(2, '0');
               final m = (diff.inMinutes % 60).toString().padLeft(2, '0');
               final s = (diff.inSeconds % 60).toString().padLeft(2, '0');
-              
+
               return Column(
                 children: [
-                  const Text('Kalan Süre', style: TextStyle(color: Colors.grey, fontSize: 12)),
+                  const Text(
+                    'Kalan Süre',
+                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
                   const SizedBox(height: 4),
                   Text(
                     '$h:$m:$s',
                     style: const TextStyle(
-                      fontSize: 32, 
-                      fontWeight: FontWeight.bold, 
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
                       fontFamily: 'monospace',
                       color: AppColors.primary,
                     ),
@@ -464,7 +546,7 @@ class _NextBellWidget extends ConsumerWidget {
               );
             },
             loading: () => const SizedBox(),
-            error: (_, __) => const SizedBox(),
+            error: (_, _) => const SizedBox(),
           ),
         ],
       ),
@@ -475,7 +557,12 @@ class _NextBellWidget extends ConsumerWidget {
 class _ManualBellsWidget extends ConsumerWidget {
   const _ManualBellsWidget();
 
-  Future<void> _playManualBell(BuildContext context, WidgetRef ref, String prefKey, String title) async {
+  Future<void> _playManualBell(
+    BuildContext context,
+    WidgetRef ref,
+    String prefKey,
+    String title,
+  ) async {
     final prefs = ref.read(sharedPreferencesProvider);
     final path = prefs.getString(prefKey);
     final audioService = ref.read(audioServiceProvider);
@@ -486,30 +573,49 @@ class _ManualBellsWidget extends ConsumerWidget {
       if (result != null && result.files.single.path != null) {
         prefs.setString(prefKey, result.files.single.path!);
         audioService.playAudio(result.files.single.path!, isManual: true);
-        ref.read(logManagerProvider.notifier).addLog('$title (Manuel)', type: 'manual');
+        ref
+            .read(logManagerProvider.notifier)
+            .addLog('$title (Manuel)', type: 'manual');
       } else {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$title için ses dosyası seçilmedi.')));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('$title için ses dosyası seçilmedi.')),
+          );
         }
       }
     } else {
       audioService.playAudio(path, isManual: true);
-      ref.read(logManagerProvider.notifier).addLog('$title (Manuel)', type: 'manual');
+      ref
+          .read(logManagerProvider.notifier)
+          .addLog('$title (Manuel)', type: 'manual');
     }
   }
 
-  Future<void> _changeManualBell(BuildContext context, WidgetRef ref, String prefKey, String title) async {
+  Future<void> _changeManualBell(
+    BuildContext context,
+    WidgetRef ref,
+    String prefKey,
+    String title,
+  ) async {
     final prefs = ref.read(sharedPreferencesProvider);
     final result = await FilePicker.pickFiles(type: FileType.audio);
     if (result != null && result.files.single.path != null) {
       prefs.setString(prefKey, result.files.single.path!);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$title sesi güncellendi.')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('$title sesi güncellendi.')));
       }
     }
   }
 
-  Widget _buildManualButton(BuildContext context, WidgetRef ref, String title, IconData icon, Color color, String prefKey) {
+  Widget _buildManualButton(
+    BuildContext context,
+    WidgetRef ref,
+    String title,
+    IconData icon,
+    Color color,
+    String prefKey,
+  ) {
     return Column(
       children: [
         ElevatedButton(
@@ -518,7 +624,9 @@ class _ManualBellsWidget extends ConsumerWidget {
             backgroundColor: color,
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -531,7 +639,10 @@ class _ManualBellsWidget extends ConsumerWidget {
         ),
         TextButton(
           onPressed: () => _changeManualBell(context, ref, prefKey, title),
-          child: const Text('Sesi Değiştir', style: TextStyle(fontSize: 10, color: Colors.grey)),
+          child: const Text(
+            'Sesi Değiştir',
+            style: TextStyle(fontSize: 10, color: Colors.grey),
+          ),
         ),
       ],
     );
@@ -544,29 +655,67 @@ class _ManualBellsWidget extends ConsumerWidget {
       runSpacing: 16,
       alignment: WrapAlignment.center,
       children: [
-        _buildManualButton(context, ref, 'Öğrenci Giriş', Icons.school, Colors.blue, 'manual_student_bell'),
-        _buildManualButton(context, ref, 'Teneffüs', Icons.celebration, Colors.green, 'manual_break_bell'),
-        _buildManualButton(context, ref, 'İstiklal Marşı', Icons.flag, Colors.red.shade700, 'manual_anthem'),
-        _buildManualButton(context, ref, 'Sözsüz İstiklal Marşı', Icons.music_note, Colors.red.shade900, 'manual_anthem_instrumental'),
+        _buildManualButton(
+          context,
+          ref,
+          'Öğrenci Giriş',
+          Icons.school,
+          Colors.blue,
+          'manual_student_bell',
+        ),
+        _buildManualButton(
+          context,
+          ref,
+          'Teneffüs',
+          Icons.celebration,
+          Colors.green,
+          'manual_break_bell',
+        ),
+        _buildManualButton(
+          context,
+          ref,
+          'İstiklal Marşı',
+          Icons.flag,
+          Colors.red.shade700,
+          'manual_anthem',
+        ),
+        _buildManualButton(
+          context,
+          ref,
+          'Sözsüz İstiklal Marşı',
+          Icons.music_note,
+          Colors.red.shade900,
+          'manual_anthem_instrumental',
+        ),
         Column(
           children: [
             ElevatedButton(
               onPressed: () {
                 ref.read(audioServiceProvider).stopAudio();
-                ref.read(logManagerProvider.notifier).addLog('Sistem Susturuldu', type: 'manual');
+                ref
+                    .read(logManagerProvider.notifier)
+                    .addLog('Sistem Susturuldu', type: 'manual');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.error,
                 foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.stop_circle_outlined),
                   SizedBox(width: 8),
-                  Text('ZİLİ SUSTUR', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(
+                    'ZİLİ SUSTUR',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
             ),
@@ -590,7 +739,9 @@ class _SystemStatusWidget extends ConsumerWidget {
         color: isActive ? Colors.green.withAlpha(20) : Colors.red.withAlpha(20),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: isActive ? Colors.green.withAlpha(100) : Colors.red.withAlpha(100),
+          color: isActive
+              ? Colors.green.withAlpha(100)
+              : Colors.red.withAlpha(100),
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -617,7 +768,7 @@ class _SystemStatusWidget extends ConsumerWidget {
             onChanged: (_) {
               ref.read(systemActiveProvider.notifier).toggle();
             },
-            activeColor: Colors.green,
+            activeThumbColor: Colors.green,
             activeTrackColor: Colors.green.withAlpha(50),
             inactiveThumbColor: Colors.red,
             inactiveTrackColor: Colors.red.withAlpha(50),
@@ -646,7 +797,9 @@ class _VolumeSliderWidget extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            volume == 0 ? Icons.volume_off : (volume < 0.5 ? Icons.volume_down : Icons.volume_up),
+            volume == 0
+                ? Icons.volume_off
+                : (volume < 0.5 ? Icons.volume_down : Icons.volume_up),
             color: AppColors.primary,
             size: 20,
           ),
