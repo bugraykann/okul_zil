@@ -168,21 +168,53 @@ class DashboardScreen extends ConsumerWidget {
                                   const SizedBox(width: 16),
                                   const _SystemStatusWidget(),
                                   const SizedBox(width: 16),
-                                  IconButton(
-                                    icon: const Icon(
-                                      Icons.local_cafe,
-                                      color: AppColors.primary,
-                                      size: 28,
-                                    ),
-                                    tooltip: 'Geliştiriciye Kahve Ismarla ☕',
-                                    onPressed: () async {
+                                  InkWell(
+                                    onTap: () async {
                                       final Uri url = Uri.parse(
-                                        'buymeacoffee.com/bgraykn',
+                                        'https://buymeacoffee.com/bgraykn',
                                       );
                                       if (!await launchUrl(url)) {
                                         debugPrint('Could not launch $url');
                                       }
                                     },
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 8,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFFFFDD00), // BMC Yellow
+                                        borderRadius: BorderRadius.circular(12),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withAlpha(20),
+                                            blurRadius: 4,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: const Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(
+                                            Icons.local_cafe,
+                                            color: Colors.black,
+                                            size: 20,
+                                          ),
+                                          SizedBox(width: 8),
+                                          Text(
+                                            'Buy me a coffee',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w700,
+                                              letterSpacing: -0.5,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                   const SizedBox(width: 8),
                                   IconButton(
