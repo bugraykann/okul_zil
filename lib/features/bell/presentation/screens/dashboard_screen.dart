@@ -27,7 +27,6 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Initialize managers that need to run
     ref.watch(bellManagerProvider);
     ref.watch(bellScheduleProvider);
 
@@ -45,7 +44,6 @@ class DashboardScreen extends ConsumerWidget {
               : null,
           body: Row(
             children: [
-              // Left HUD Timeline for large screens
               if (!isSmallScreen)
                 Container(
                   width: 320,
@@ -68,11 +66,9 @@ class DashboardScreen extends ConsumerWidget {
                   child: const _TimelineWidget(),
                 ),
 
-              // Right Content
               Expanded(
                 child: Stack(
                   children: [
-                    // Background Logo
                     Consumer(
                       builder: (context, ref, child) {
                         final logoPath = ref.watch(logoControllerProvider);
@@ -96,10 +92,8 @@ class DashboardScreen extends ConsumerWidget {
                       },
                     ),
 
-                    // Main layout column
                     Column(
                       children: [
-                        // Top Bar
                         Padding(
                           padding: const EdgeInsets.only(
                             top: 40,
@@ -109,7 +103,6 @@ class DashboardScreen extends ConsumerWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // Left side (Menu button on small screens)
                               isSmallScreen
                                   ? Builder(
                                       builder: (ctx) => IconButton(
@@ -124,7 +117,6 @@ class DashboardScreen extends ConsumerWidget {
                                     )
                                   : const SizedBox(),
 
-                              // Right side (Actions)
                               Row(
                                 children: [
                                   IconButton(
@@ -184,7 +176,6 @@ class DashboardScreen extends ConsumerWidget {
                           ),
                         ),
 
-                        // Main Content
                         Expanded(
                           child: Center(
                             child: SingleChildScrollView(
@@ -207,7 +198,6 @@ class DashboardScreen extends ConsumerWidget {
                       ],
                     ),
 
-                    // Copyright Text
                     Positioned(
                       bottom: 8,
                       right: 16,
@@ -220,7 +210,6 @@ class DashboardScreen extends ConsumerWidget {
                       ),
                     ),
                     
-                    // Buy me a coffee button (Bottom Left)
                     Positioned(
                       left: 16,
                       bottom: 16,
@@ -310,7 +299,6 @@ class _TimelineWidget extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final schedule = todaySchedules[index];
 
-                // Determine status
                 bool isPast = false;
                 bool isNext = false;
 
@@ -330,7 +318,6 @@ class _TimelineWidget extends ConsumerWidget {
                   }
                 }
 
-                // HUD UI mapping
                 final color = isNext
                     ? AppColors.primary
                     : (isPast
@@ -343,12 +330,10 @@ class _TimelineWidget extends ConsumerWidget {
                 return IntrinsicHeight(
                   child: Row(
                     children: [
-                      // Timeline line & dot
                       SizedBox(
                         width: 40,
                         child: Column(
                           children: [
-                            // top line
                             Expanded(
                               child: Container(
                                 width: 2,
@@ -357,7 +342,6 @@ class _TimelineWidget extends ConsumerWidget {
                                     : lineColor,
                               ),
                             ),
-                            // dot
                             Container(
                               width: dotSize,
                               height: dotSize,
@@ -377,7 +361,6 @@ class _TimelineWidget extends ConsumerWidget {
                                     : null,
                               ),
                             ),
-                            // bottom line
                             Expanded(
                               child: Container(
                                 width: 2,
@@ -389,7 +372,6 @@ class _TimelineWidget extends ConsumerWidget {
                           ],
                         ),
                       ),
-                      // Content
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -546,7 +528,6 @@ class _NextBellWidget extends ConsumerWidget {
               );
 
               if (nextTime.isBefore(currentTime)) {
-                // If it's earlier, it means it's tomorrow
                 nextTime = nextTime.add(const Duration(days: 1));
               }
 
@@ -597,7 +578,6 @@ class _ManualBellsWidget extends ConsumerWidget {
     final audioService = ref.read(audioServiceProvider);
 
     if (path == null || path.isEmpty) {
-      // Pick file first
       final result = await FilePicker.pickFiles(type: FileType.audio);
       if (result != null && result.files.single.path != null) {
         prefs.setString(prefKey, result.files.single.path!);

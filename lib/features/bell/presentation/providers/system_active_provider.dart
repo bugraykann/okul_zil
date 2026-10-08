@@ -9,7 +9,6 @@ class SystemActive extends _$SystemActive {
   @override
   bool build() {
     final prefs = ref.watch(sharedPreferencesProvider);
-    // Varsayılan olarak aktif başlasın
     return prefs.getBool('system_active') ?? true;
   }
 

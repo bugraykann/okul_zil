@@ -13,12 +13,10 @@ class AudioService {
   }
 
   Future<void> playAudio(String path, {bool isManual = false}) async {
-    // Manuel bir zil çalıyorken, otomatik bir zil çalmaya çalışırsa yok sayılır.
     if (_isPlaying && _isManualPlaying && !isManual) {
       return;
     }
 
-    // Halihazırda bir şey çalıyorsa durdur (örn: otomatik çalarken manuele basılırsa)
     if (_isPlaying) {
       await stopAudio();
     }

@@ -1,13 +1,7 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'bell_schedule_provider.dart';
 
-// **************************************************************************
-// RiverpodGenerator
-// **************************************************************************
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint, type=warning
 
 @ProviderFor(BellScheduleNotifier)
 final bellScheduleProvider = BellScheduleNotifierProvider._();

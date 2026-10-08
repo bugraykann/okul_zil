@@ -1,13 +1,7 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'bell_repository_provider.dart';
 
-// **************************************************************************
-// RiverpodGenerator
-// **************************************************************************
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint, type=warning
 
 @ProviderFor(bellLocalDataSource)
 final bellLocalDataSourceProvider = BellLocalDataSourceProvider._();
@@ -45,7 +39,6 @@ final class BellLocalDataSourceProvider
     return bellLocalDataSource(ref);
   }
 
-  /// {@macro riverpod.override_with_value}
   Override overrideWithValue(BellLocalDataSource value) {
     return $ProviderOverride(
       origin: this,
@@ -87,7 +80,6 @@ final class BellRepositoryProvider
     return bellRepository(ref);
   }
 
-  /// {@macro riverpod.override_with_value}
   Override overrideWithValue(BellRepository value) {
     return $ProviderOverride(
       origin: this,
@@ -134,7 +126,6 @@ final class GetSchedulesUseCaseProvider
     return getSchedulesUseCase(ref);
   }
 
-  /// {@macro riverpod.override_with_value}
   Override overrideWithValue(GetSchedulesUseCase value) {
     return $ProviderOverride(
       origin: this,

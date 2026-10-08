@@ -130,7 +130,6 @@ class _SchedulesScreenState extends ConsumerState<SchedulesScreen> {
         backgroundColor: AppColors.background,
         body: Row(
           children: [
-            // Left Sidebar Navigation
             Container(
               width: 260,
               decoration: BoxDecoration(
@@ -234,12 +233,10 @@ class _SchedulesScreenState extends ConsumerState<SchedulesScreen> {
               ),
             ),
 
-            // Right Main Content
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Header Toolbar
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 32,
@@ -394,7 +391,6 @@ class _SchedulesScreenState extends ConsumerState<SchedulesScreen> {
                     ),
                   ),
 
-                  // Table Headers
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 48,
@@ -457,7 +453,6 @@ class _SchedulesScreenState extends ConsumerState<SchedulesScreen> {
                     ),
                   ),
 
-                  // Table Body (List)
                   Expanded(
                     child: _isLoading
                         ? const Center(child: CircularProgressIndicator())
@@ -519,7 +514,6 @@ class _SchedulesScreenState extends ConsumerState<SchedulesScreen> {
                                     ),
                                     child: Row(
                                       children: [
-                                        // Time
                                         Expanded(
                                           flex: 1,
                                           child: Text(
@@ -531,7 +525,6 @@ class _SchedulesScreenState extends ConsumerState<SchedulesScreen> {
                                             ),
                                           ),
                                         ),
-                                        // Title
                                         Expanded(
                                           flex: 2,
                                           child: Text(
@@ -542,7 +535,6 @@ class _SchedulesScreenState extends ConsumerState<SchedulesScreen> {
                                             ),
                                           ),
                                         ),
-                                        // Audio File Name
                                         Expanded(
                                           flex: 2,
                                           child: Row(
@@ -569,7 +561,6 @@ class _SchedulesScreenState extends ConsumerState<SchedulesScreen> {
                                             ],
                                           ),
                                         ),
-                                        // Status
                                         Expanded(
                                           flex: 1,
                                           child: Align(
@@ -600,7 +591,6 @@ class _SchedulesScreenState extends ConsumerState<SchedulesScreen> {
                                             ),
                                           ),
                                         ),
-                                        // Actions
                                         Expanded(
                                           flex: 1,
                                           child: Row(

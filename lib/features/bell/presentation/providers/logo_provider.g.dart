@@ -1,13 +1,7 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'logo_provider.dart';
 
-// **************************************************************************
-// RiverpodGenerator
-// **************************************************************************
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint, type=warning
 
 @ProviderFor(LogoController)
 final logoControllerProvider = LogoControllerProvider._();
@@ -32,7 +26,6 @@ final class LogoControllerProvider
   @override
   LogoController create() => LogoController();
 
-  /// {@macro riverpod.override_with_value}
   Override overrideWithValue(String? value) {
     return $ProviderOverride(
       origin: this,

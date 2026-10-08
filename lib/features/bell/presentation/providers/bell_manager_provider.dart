@@ -36,7 +36,6 @@ class BellManager extends _$BellManager {
   }
 
   void _checkBells(DateTime currentTime) {
-    // Eğer sistem kapalıysa (Tatil modundaysa), otomatik zilleri çalma
     final isSystemActive = ref.read(systemActiveProvider);
     if (!isSystemActive) return;
 
@@ -74,7 +73,6 @@ class BellManager extends _$BellManager {
           .toList();
       enabledBells.sort((a, b) => a.time.compareTo(b.time));
 
-      // Find the first bell that is after the current time
       BellSchedule? next;
       for (var bell in enabledBells) {
         if (bell.time.compareTo(currentFormatted) > 0) {
@@ -83,7 +81,6 @@ class BellManager extends _$BellManager {
         }
       }
 
-      // If none is found after current time, next is the first one tomorrow
       next ??= enabledBells.isNotEmpty ? enabledBells.first : null;
 
       if (state != next) {

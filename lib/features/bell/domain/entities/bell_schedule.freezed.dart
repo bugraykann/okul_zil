@@ -1,29 +1,16 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// coverage:ignore-file
-// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'bell_schedule.dart';
 
-// **************************************************************************
-// FreezedGenerator
-// **************************************************************************
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// dart format off
 T _$identity<T>(T value) => value;
 
-/// @nodoc
 mixin _$BellSchedule {
 
  String get id; String get time; String get audioPath; String get title; List<int> get days; bool get isEnabled;
-/// Create a copy of BellSchedule
-/// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $BellScheduleCopyWith<BellSchedule> get copyWith => _$BellScheduleCopyWithImpl<BellSchedule>(this as BellSchedule, _$identity);
 
-  /// Serializes this BellSchedule to a JSON map.
   Map<String, dynamic> toJson();
 
 
@@ -49,7 +36,6 @@ String toString() {
 
 }
 
-/// @nodoc
 abstract mixin class $BellScheduleCopyWith<$Res>  {
   factory $BellScheduleCopyWith(BellSchedule value, $Res Function(BellSchedule) _then) = _$BellScheduleCopyWithImpl;
 @useResult
@@ -61,7 +47,6 @@ $Res call({
 
 
 }
-/// @nodoc
 class _$BellScheduleCopyWithImpl<$Res>
     implements $BellScheduleCopyWith<$Res> {
   _$BellScheduleCopyWithImpl(this._self, this._then);
@@ -69,8 +54,6 @@ class _$BellScheduleCopyWithImpl<$Res>
   final BellSchedule _self;
   final $Res Function(BellSchedule) _then;
 
-/// Create a copy of BellSchedule
-/// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? time = null,Object? audioPath = null,Object? title = null,Object? days = null,Object? isEnabled = null,}) {
   return _then(BellSchedule(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
@@ -86,19 +69,7 @@ as bool,
 }
 
 
-/// Adds pattern-matching-related methods to [BellSchedule].
 extension BellSchedulePatterns on BellSchedule {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
 
 @optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _BellSchedule value)?  $default,{required TResult orElse(),}){
 final _that = this;
@@ -109,18 +80,6 @@ return $default(_that);case _:
 
 }
 }
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
 
 @optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _BellSchedule value)  $default,){
 final _that = this;
@@ -131,17 +90,6 @@ return $default(_that);case _:
 
 }
 }
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
 
 @optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _BellSchedule value)?  $default,){
 final _that = this;
@@ -152,17 +100,6 @@ return $default(_that);case _:
 
 }
 }
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String time,  String audioPath,  String title,  List<int> days,  bool isEnabled)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
@@ -172,18 +109,6 @@ return $default(_that.id,_that.time,_that.audioPath,_that.title,_that.days,_that
 
 }
 }
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String time,  String audioPath,  String title,  List<int> days,  bool isEnabled)  $default,) {final _that = this;
 switch (_that) {
@@ -193,17 +118,6 @@ return $default(_that.id,_that.time,_that.audioPath,_that.title,_that.days,_that
 
 }
 }
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String time,  String audioPath,  String title,  List<int> days,  bool isEnabled)?  $default,) {final _that = this;
 switch (_that) {
@@ -216,7 +130,6 @@ return $default(_that.id,_that.time,_that.audioPath,_that.title,_that.days,_that
 
 }
 
-/// @nodoc
 @JsonSerializable()
 
 class _BellSchedule implements BellSchedule {
@@ -230,14 +143,11 @@ class _BellSchedule implements BellSchedule {
  final  List<int> _days;
 @override@JsonKey() List<int> get days {
   if (_days is EqualUnmodifiableListView) return _days;
-  // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_days);
 }
 
 @override@JsonKey() final  bool isEnabled;
 
-/// Create a copy of BellSchedule
-/// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 _$BellScheduleCopyWith<_BellSchedule> get copyWith => __$BellScheduleCopyWithImpl<_BellSchedule>(this, _$identity);
@@ -266,7 +176,6 @@ String toString() {
 
 }
 
-/// @nodoc
 abstract mixin class _$BellScheduleCopyWith<$Res> implements $BellScheduleCopyWith<$Res> {
   factory _$BellScheduleCopyWith(_BellSchedule value, $Res Function(_BellSchedule) _then) = __$BellScheduleCopyWithImpl;
 @override @useResult
@@ -278,7 +187,6 @@ $Res call({
 
 
 }
-/// @nodoc
 class __$BellScheduleCopyWithImpl<$Res>
     implements _$BellScheduleCopyWith<$Res> {
   __$BellScheduleCopyWithImpl(this._self, this._then);
@@ -286,8 +194,6 @@ class __$BellScheduleCopyWithImpl<$Res>
   final _BellSchedule _self;
   final $Res Function(_BellSchedule) _then;
 
-/// Create a copy of BellSchedule
-/// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? time = null,Object? audioPath = null,Object? title = null,Object? days = null,Object? isEnabled = null,}) {
   return _then(_BellSchedule(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
@@ -303,4 +209,3 @@ as bool,
 
 }
 
-// dart format on

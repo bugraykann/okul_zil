@@ -60,7 +60,6 @@ class _TemplateGeneratorDialogState extends ConsumerState<TemplateGeneratorDialo
     DateTime currentTime = DateTime(2020, 1, 1, _startTime.hour, _startTime.minute);
 
     for (int i = 1; i <= lessonCount; i++) {
-      // Student Entry Bell
       final studentEntryTime = currentTime.subtract(Duration(minutes: offset));
       generated.add(_createBell(
         title: '$i. Ders Öğrenci Başlama',
@@ -68,14 +67,12 @@ class _TemplateGeneratorDialogState extends ConsumerState<TemplateGeneratorDialo
         audioPath: _studentAudioPath,
       ));
 
-      // Teacher Entry Bell
       generated.add(_createBell(
         title: '$i. Ders Öğretmen Başlama',
         time: currentTime,
         audioPath: _teacherAudioPath,
       ));
 
-      // Exit Bell
       final exitTime = currentTime.add(Duration(minutes: lessonDuration));
       generated.add(_createBell(
         title: '$i. Ders Çıkış',
@@ -83,7 +80,6 @@ class _TemplateGeneratorDialogState extends ConsumerState<TemplateGeneratorDialo
         audioPath: _exitAudioPath,
       ));
 
-      // Update currentTime for next lesson
       if (i == lunchAfter) {
         currentTime = exitTime.add(Duration(minutes: lunchDuration));
       } else {

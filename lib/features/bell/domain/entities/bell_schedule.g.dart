@@ -1,10 +1,6 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'bell_schedule.dart';
 
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
 
 _BellSchedule _$BellScheduleFromJson(Map<String, dynamic> json) =>
     _BellSchedule(

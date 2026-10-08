@@ -1,13 +1,7 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'volume_provider.dart';
 
-// **************************************************************************
-// RiverpodGenerator
-// **************************************************************************
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint, type=warning
 
 @ProviderFor(VolumeController)
 final volumeControllerProvider = VolumeControllerProvider._();
@@ -32,7 +26,6 @@ final class VolumeControllerProvider
   @override
   VolumeController create() => VolumeController();
 
-  /// {@macro riverpod.override_with_value}
   Override overrideWithValue(double value) {
     return $ProviderOverride(
       origin: this,

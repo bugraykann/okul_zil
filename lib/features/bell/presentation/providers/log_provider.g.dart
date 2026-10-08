@@ -1,13 +1,7 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'log_provider.dart';
 
-// **************************************************************************
-// RiverpodGenerator
-// **************************************************************************
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint, type=warning
 
 @ProviderFor(LogManager)
 final logManagerProvider = LogManagerProvider._();
@@ -32,7 +26,6 @@ final class LogManagerProvider
   @override
   LogManager create() => LogManager();
 
-  /// {@macro riverpod.override_with_value}
   Override overrideWithValue(List<BellLog> value) {
     return $ProviderOverride(
       origin: this,

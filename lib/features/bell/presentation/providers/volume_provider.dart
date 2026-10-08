@@ -11,7 +11,6 @@ class VolumeController extends _$VolumeController {
     final prefs = ref.watch(sharedPreferencesProvider);
     final savedVolume = prefs.getDouble('master_volume') ?? 1.0;
     
-    // Initialize audio service volume asynchronously without blocking build
     Future.microtask(() {
       ref.read(audioServiceProvider).setVolume(savedVolume);
     });

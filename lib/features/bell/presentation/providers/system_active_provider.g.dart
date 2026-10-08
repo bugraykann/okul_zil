@@ -1,13 +1,7 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'system_active_provider.dart';
 
-// **************************************************************************
-// RiverpodGenerator
-// **************************************************************************
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint, type=warning
 
 @ProviderFor(SystemActive)
 final systemActiveProvider = SystemActiveProvider._();
@@ -31,7 +25,6 @@ final class SystemActiveProvider extends $NotifierProvider<SystemActive, bool> {
   @override
   SystemActive create() => SystemActive();
 
-  /// {@macro riverpod.override_with_value}
   Override overrideWithValue(bool value) {
     return $ProviderOverride(
       origin: this,

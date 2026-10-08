@@ -22,7 +22,6 @@ class BellLocalDataSourceImpl implements BellLocalDataSource {
         final List<dynamic> jsonList = json.decode(jsonString);
         return jsonList.map((e) => BellSchedule.fromJson(e)).toList();
       } else {
-        // Return default schedules if empty
         return [
           const BellSchedule(id: '1', time: '08:30', audioPath: 'assets/audio/bell.mp3', title: 'Ders Zili'),
           const BellSchedule(id: '2', time: '09:10', audioPath: 'assets/audio/bell.mp3', title: 'Teneffüs Zili'),

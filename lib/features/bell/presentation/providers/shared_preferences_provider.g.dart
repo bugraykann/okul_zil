@@ -1,13 +1,7 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'shared_preferences_provider.dart';
 
-// **************************************************************************
-// RiverpodGenerator
-// **************************************************************************
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint, type=warning
 
 @ProviderFor(sharedPreferences)
 final sharedPreferencesProvider = SharedPreferencesProvider._();
@@ -45,7 +39,6 @@ final class SharedPreferencesProvider
     return sharedPreferences(ref);
   }
 
-  /// {@macro riverpod.override_with_value}
   Override overrideWithValue(SharedPreferences value) {
     return $ProviderOverride(
       origin: this,

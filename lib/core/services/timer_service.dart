@@ -10,7 +10,6 @@ class TimerService {
   void startTimer() {
     if (_timer != null && _timer!.isActive) return;
     
-    // Fire immediately once
     _timeController.add(DateTime.now());
     
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {

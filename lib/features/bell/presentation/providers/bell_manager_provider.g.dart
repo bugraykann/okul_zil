@@ -1,13 +1,7 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'bell_manager_provider.dart';
 
-// **************************************************************************
-// RiverpodGenerator
-// **************************************************************************
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint, type=warning
 
 @ProviderFor(BellManager)
 final bellManagerProvider = BellManagerProvider._();
@@ -32,7 +26,6 @@ final class BellManagerProvider
   @override
   BellManager create() => BellManager();
 
-  /// {@macro riverpod.override_with_value}
   Override overrideWithValue(BellSchedule? value) {
     return $ProviderOverride(
       origin: this,

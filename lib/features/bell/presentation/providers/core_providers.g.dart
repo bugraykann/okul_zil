@@ -1,13 +1,7 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'core_providers.dart';
 
-// **************************************************************************
-// RiverpodGenerator
-// **************************************************************************
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint, type=warning
 
 @ProviderFor(audioService)
 final audioServiceProvider = AudioServiceProvider._();
@@ -39,7 +33,6 @@ final class AudioServiceProvider
     return audioService(ref);
   }
 
-  /// {@macro riverpod.override_with_value}
   Override overrideWithValue(AudioService value) {
     return $ProviderOverride(
       origin: this,
@@ -80,7 +73,6 @@ final class TimerServiceProvider
     return timerService(ref);
   }
 
-  /// {@macro riverpod.override_with_value}
   Override overrideWithValue(TimerService value) {
     return $ProviderOverride(
       origin: this,

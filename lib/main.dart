@@ -14,10 +14,8 @@ import 'features/bell/presentation/providers/shared_preferences_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize SharedPreferences
   final sharedPreferences = await SharedPreferences.getInstance();
 
-  // Initialize Window Manager
   await windowManager.ensureInitialized();
 
   WindowOptions windowOptions = const WindowOptions(
@@ -31,16 +29,13 @@ void main() async {
   );
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
-    // Show initially during development to avoid confusion with transparent tray icon
     await windowManager.show();
     await windowManager.focus();
     await windowManager.setPreventClose(true); // Prevent default close behavior
   });
 
-  // Setup window listener
   windowManager.addListener(AppWindowListener());
 
-  // Initialize Tray
   await trayManager.setIcon(
     Platform.isWindows
         ? 'assets/icons/app_icon.ico'
@@ -56,12 +51,8 @@ void main() async {
   );
   await trayManager.setContextMenu(menu);
 
-  // Setup tray listener
   trayManager.addListener(TrayListenerImpl());
 
-  // Setup Auto-Start
-  // Requires package_info_plus for appName/packageName but we can hardcode for simplicity
-  // or add it as dependency. For now, let's just initialize it safely.
   try {
     launchAtStartup.setup(
       appName: 'Okul Zili',
